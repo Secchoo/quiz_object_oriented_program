@@ -101,3 +101,58 @@ class QuizCreator(Quiz):
         except KeyboardInterrupt:
             print("\n\nQuiz creation completed!")
             print(f"All questions have been saved to {self.filename}")
+
+    def edit_questions(self):
+        #Edit existing questions in the quiz.
+        if not os.path.exists(self.filename) or os.path.getsize(self.filename) == 0:
+            print("\nNo questions available to edit!")
+            return
+
+        with open(self.filename, 'r') as file:
+            lines = file.readlines()
+
+        questions = []
+        current_question = []
+
+        for line in lines:
+            if line.strip() == "":
+                if current_question:
+                    questions.append(current_question)
+                    current_question = []
+            else:
+                current_question.append(line)
+        if current_question:
+            questions.append(current_question)
+
+        print("\n=== Edit Questions ===")
+        for i, question in enumerate(questions, start=1):
+            print(f"{i}. {question[0].strip()}")
+
+        try:
+            choice = int(input("\nEnter the number of the question to edit: ").strip())
+            if 1 <= choice <= len(questions):
+                selected_question = questions[choice - 1]
+                print("\nEditing question:")
+                print("".join(selected_question))
+
+                new_question = self.questions_getter()
+                new_answers = self.choices()
+                new_correct_answer = self.correct_answer(new_answers)
+
+                updated_question = [f"Question: {new_question}\n"]
+                letters = ['a', 'b', 'c', 'd']
+                for letter, answer in zip(letters, new_answers):
+                    updated_question.append(f"{letter}. {answer}\n")
+                updated_question.append(f"Correct answer: {new_correct_answer}\n\n")
+
+                questions[choice - 1] = updated_question
+
+                with open(self.filename, 'w') as file:
+                    for question in questions:
+                        file.writelines(question)
+
+                print("\nQuestion updated successfully!")
+            else:
+                print("Invalid choice!")
+        except ValueError:
+            print("Invalid input! Please enter a valid number.")
