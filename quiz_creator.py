@@ -65,3 +65,39 @@ class QuizCreator(Quiz):
         print(f"{CYAN}3️⃣  ✏️  Edit Question{RESET}")
         print(f"{RED}4️⃣  🗑️  Delete Question{RESET}")
         print(f"{GREEN}5️⃣  ✅ Exit{RESET}")
+
+    def main(self):
+        #Main function to run the quiz creator.
+        print("Welcome to Quiz Creator!")
+        print("Add questions to your quiz. Press Ctrl+C to finish.")
+        try:
+            while True:
+                self.display_menu()
+                choice = input("\nEnter your choice (1-5): ").strip()
+                if choice == '1':
+                    question = self.questions_getter()
+                    answers = self.choices()
+                    correct_answer_value = self.correct_answer(answers)
+                    self.quiz_question_saver(question, answers, correct_answer_value)
+                    print("\nQuestion added successfully!")
+                elif choice == '2':
+                    if os.path.exists(self.filename) and os.path.getsize(self.filename) > 0:
+                        with open(self.filename, 'r') as file:
+                            print("\n=== Available Questions ===")
+                            print(file.read())
+                    else:
+                        print("\nNo questions available!")
+                elif choice == '3':
+                    self.edit_questions()
+                elif choice == '4':
+                    self.delete_questions()
+                elif choice == '5':
+                    print("\nQuiz creation completed!")
+                    print(f"All questions have been saved to {self.filename}")
+                    break
+                else:
+                    print("Invalid choice! Please enter a number between 1 and 5.")
+
+        except KeyboardInterrupt:
+            print("\n\nQuiz creation completed!")
+            print(f"All questions have been saved to {self.filename}")
