@@ -51,3 +51,17 @@ class QuizCreator(Quiz):
             for letter, answer in zip(letters, answers):
                 file.write(f"{letter}. {answer}\n")
             file.write(f"Correct answer: {correct_answer}\n\n")
+
+    def display_menu(self):
+        """Display the main menu with colors and emojis."""
+        CYAN = '\033[96m'
+        GREEN = '\033[92m'
+        YELLOW = '\033[93m'
+        RED = '\033[91m'
+        RESET = '\033[0m'
+        print(f"\n{CYAN}=== 🎉 Quiz Creator Menu 🎉 ==={RESET}")
+        print(f"{GREEN}1️⃣  ➕ Add Question{RESET}")
+        print(f"{YELLOW}2️⃣  👁️  View Questions{RESET}")
+        print(f"{CYAN}3️⃣  ✏️  Edit Question{RESET}")
+        print(f"{RED}4️⃣  🗑️  Delete Question{RESET}")
+        print(f"{GREEN}5️⃣  ✅ Exit{RESET}")
