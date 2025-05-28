@@ -42,3 +42,12 @@ class QuizCreator(Quiz):
             if choice in letters:
                 return choice
             print("Invalid choice! Please enter a, b, c, or d.")
+
+    def quiz_question_saver(self, question, answers, correct_answer):
+        #Save the quiz data to a text file.
+        with open(self.filename, 'a') as file:
+            file.write(f"Question: {question}\n")
+            letters = ['a', 'b', 'c', 'd']
+            for letter, answer in zip(letters, answers):
+                file.write(f"{letter}. {answer}\n")
+            file.write(f"Correct answer: {correct_answer}\n\n")
