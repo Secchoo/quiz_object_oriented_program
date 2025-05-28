@@ -20,7 +20,7 @@ class Quiz:
     #Base class to manage quiz functionality
 
     def __init__(self, filename="quiz_record.txt"):
-        seld.filename = filename
+        self.filename = filename
         self.questions = self.load_questions()
 
     def load_questions(self):
@@ -55,3 +55,18 @@ class Quiz:
         
         return questions
     
+def show_final_results(self, score, total):
+    #displays the final results of the quiz
+    percentage = (score / total) * 100
+    print(Fore.LIGHTBLUE_EX + Style.BRIGHT + "\n 🎉 Quiz Complete! Here are your final results 🎉")
+    print(Fore.CYAN + Style.BRIGHT + 
+              f"\n📊 Your Score: {score}/{total} ({percentage:.1f}%)")
+    
+    if percentage >= 90:
+        print(Fore.GREEN + Style.BRIGHT + "🏆 Perfect Score! You're a quiz master!")
+    elif percentage >= 75:
+        print(Fore.GREEN + Style.BRIGHT + "🌟 Great job! You have a solid understanding!")
+    elif percentage >= 50:
+        print(Fore.YELLOW + Style.BRIGHT + "👍 Good effort! Keep practicing to improve!")
+    else:
+        print(Fore.RED + Style.BRIGHT + "❗ Don't be discouraged! Every quiz is a learning opportunity!")
