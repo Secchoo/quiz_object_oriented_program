@@ -30,3 +30,15 @@ class QuizCreator(Quiz):
                     break
                 print("Answer cannot be empty!")
         return answers 
+
+    def correct_answer(self, answers):
+        #Get the correct answer from the user.
+        letters = ['a', 'b', 'c', 'd']
+        while True:
+            print("\nSelect the correct answer:")
+            for letter, answer in zip(letters, answers):
+                print(f"{letter}. {answer}")
+            choice = input("Enter the letter of the correct answer: ").lower().strip()
+            if choice in letters:
+                return choice
+            print("Invalid choice! Please enter a, b, c, or d.")
