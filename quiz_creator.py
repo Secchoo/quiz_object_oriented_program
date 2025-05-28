@@ -156,3 +156,44 @@ class QuizCreator(Quiz):
                 print("Invalid choice!")
         except ValueError:
             print("Invalid input! Please enter a valid number.")
+
+    def delete_questions(self):
+        #Delete existing questions from the quiz.
+        if not os.path.exists(self.filename) or os.path.getsize(self.filename) == 0:
+            print("\nNo questions available to delete!")
+            return
+
+        with open(self.filename, 'r') as file:
+            lines = file.readlines()
+
+        questions = []
+        current_question = []
+
+        for line in lines:
+            if line.strip() == "":
+                if current_question:
+                    questions.append(current_question)
+                    current_question = []
+            else:
+                current_question.append(line)
+        if current_question:
+            questions.append(current_question)
+
+        print("\n=== Delete Questions ===")
+        for i, question in enumerate(questions, start=1):
+            print(f"{i}. {question[0].strip()}")
+
+        try:
+            choice = int(input("\nEnter the number of the question to delete: ").strip())
+            if 1 <= choice <= len(questions):
+                del questions[choice - 1]
+
+                with open(self.filename, 'w') as file:
+                    for question in questions:
+                        file.writelines(question)
+
+                print("\nQuestion deleted successfully!")
+            else:
+                print("Invalid choice!")
+        except ValueError:
+            print("Invalid input! Please enter a valid number.")
