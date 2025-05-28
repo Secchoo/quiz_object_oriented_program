@@ -1,0 +1,7 @@
+Question: Where is california?
+a. america
+b. asia
+c. africa
+d. europe
+Correct answer: a
+

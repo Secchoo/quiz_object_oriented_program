@@ -55,18 +55,22 @@ class Quiz:
         
         return questions
     
-def show_final_results(self, score, total):
-    #displays the final results of the quiz
-    percentage = (score / total) * 100
-    print(Fore.LIGHTBLUE_EX + Style.BRIGHT + "\n 🎉 Quiz Complete! Here are your final results 🎉")
-    print(Fore.CYAN + Style.BRIGHT + 
-              f"\n📊 Your Score: {score}/{total} ({percentage:.1f}%)")
-    
-    if percentage >= 90:
-        print(Fore.GREEN + Style.BRIGHT + "🏆 Perfect Score! You're a quiz master!")
-    elif percentage >= 75:
-        print(Fore.GREEN + Style.BRIGHT + "🌟 Great job! You have a solid understanding!")
-    elif percentage >= 50:
-        print(Fore.YELLOW + Style.BRIGHT + "👍 Good effort! Keep practicing to improve!")
-    else:
-        print(Fore.RED + Style.BRIGHT + "❗ Don't be discouraged! Every quiz is a learning opportunity!")
+    def show_final_results(self, score, total_questions):
+        from colorama import Fore
+        print(Fore.MAGENTA + f"\n🎉 Quiz Completed! 🎉")
+        print(Fore.GREEN + f"Your Score: {score} out of {total_questions}")
+        percentage = (score / total_questions) * 100 if total_questions > 0 else 0
+
+        # Color coding based on percentage
+        if percentage >= 90:
+            color = Fore.GREEN
+        elif percentage >= 75:
+            color = Fore.CYAN
+        elif percentage >= 50:
+            color = Fore.YELLOW
+        elif percentage >= 30:
+            color = Fore.MAGENTA
+        else:
+            color = Fore.RED
+
+        print(color + f"Percentage: {percentage:.2f}%\n")

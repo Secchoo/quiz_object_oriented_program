@@ -37,4 +37,14 @@ class QuizTaker(Quiz):
                 return choice
             print(Fore.RED + Style.BRIGHT + "⚠️  Invalid choice! Please enter A, B, C, or D")
 
-__all__ = ["QuizTaker"]
+    def present_question(self, question, index, total_questions):
+        # Display the question and its options, return the shuffled options list.
+        import random
+        print(Fore.CYAN + f"\nQuestion {index} of {total_questions}:")
+        print(Fore.YELLOW + question.text)
+        options = question.options[:]  # Use the correct attribute name
+        random.shuffle(options)
+        letters = ['A', 'B', 'C', 'D']
+        for i, option in enumerate(options):
+            print(Fore.WHITE + f"  {letters[i]}. {option}")
+        return options
